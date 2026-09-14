@@ -49,6 +49,28 @@ body {
   gap: 16px;
 }
 
+/* Footer — διακριτικό, ίδιο στυλ σε όλες τις γραμμές */
+
+.app-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-footer p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.app-footer a {
+  color: var(--text-secondary);
+}
+
+.app-footer a:hover {
+  color: var(--accent);
+}
+
 /* Header */
 
 .app-header {
