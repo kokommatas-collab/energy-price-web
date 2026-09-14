@@ -1,0 +1,400 @@
+/* Energy Price Monitor — στατική ιστοσελίδα
+   Dark theme, ίδιο ύφος με το iOS app: μαύρο φόντο, τιρκουάζ accent. */
+
+:root {
+  --bg: #000000;
+  --card-bg: #1c1c1e;
+  --card-bg-tertiary: #2c2c2e;
+  --border: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(235, 235, 245, 0.6);
+  --text-tertiary: rgba(235, 235, 245, 0.4);
+
+  --accent: #18e0b2;
+  --accent-bg: rgba(24, 224, 178, 0.14);
+  --negative: #ff453a;
+  --negative-bg: rgba(255, 69, 58, 0.14);
+  --zero: #30d5c8;
+  --orange: #ff9f0a;
+  --orange-bg: rgba(255, 159, 10, 0.14);
+
+  --radius-card: 16px;
+  --radius-inner: 12px;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.app-header__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.app-header__icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.app-header h1 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.app-header__subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.icon-button {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--card-bg);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.icon-button:hover {
+  background: var(--card-bg-tertiary);
+}
+
+.icon-button:active {
+  transform: scale(0.92);
+}
+
+.icon-button.is-loading svg {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Tabs */
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.tab {
+  flex: 1;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab.is-active {
+  background: var(--accent);
+  color: #00251c;
+}
+
+/* Generic card */
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: 16px;
+}
+
+/* Hero card */
+
+.hero-card__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.hero-card__date {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(235, 235, 245, 0.12);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.badge.is-warning {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+.hero-card__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 4px;
+}
+
+.hero-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.hero-card__price {
+  font-size: 42px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+}
+
+.hero-card__price.is-negative { color: var(--negative); }
+.hero-card__price.is-zero { color: var(--zero); }
+
+.hero-card__unit {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.hero-card__period {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.hero-card__stats {
+  display: flex;
+  margin-top: 14px;
+  padding: 10px 0;
+  background: var(--card-bg-tertiary);
+  border-radius: var(--radius-inner);
+}
+
+.hero-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hero-stat + .hero-stat {
+  border-left: 1px solid var(--border);
+}
+
+.hero-stat__label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.hero-stat__value {
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-stat__value.is-negative { color: var(--negative); }
+
+.hero-card__footer {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+/* Chart card */
+
+.chart-card h2 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 220px;
+}
+
+/* Stats grid */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.metric-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-card__title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-card__value {
+  font-size: 19px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-card__value.is-negative { color: var(--negative); }
+
+.metric-card__detail {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* States: loading / empty / error */
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 56px 20px;
+  color: var(--text-secondary);
+}
+
+.state__icon {
+  font-size: 34px;
+  margin-bottom: 4px;
+}
+
+.state__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.state__message {
+  font-size: 14px;
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.state.is-warning .state__icon { color: var(--orange); }
+.state.is-error .state__icon { color: var(--negative); }
+
+.retry-button {
+  margin-top: 6px;
+  appearance: none;
+  border: none;
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  background: rgba(24, 224, 178, 0.22);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+
+/* Layout helpers */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 380px) {
+  .hero-card__price {
+    font-size: 36px;
+  }
+
+  .app-header h1 {
+    font-size: 17px;
+  }
+}
